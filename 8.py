@@ -1,0 +1,1 @@
+print((lambda a, b, c: a * b % c)(*list(map(int, input().split()))))

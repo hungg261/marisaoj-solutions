@@ -1,0 +1,1 @@
+print((lambda a, b, c, d: "YES" if a == c or a == d or b == c or b == d else "NO")(*list(map(int, input().split()))))

@@ -1,0 +1,1 @@
+print((lambda a, b, c: f"{eval(a+b+c):.3f}" if not (b == '/' and float(c) == 0) else 'ze')(*input().split()))

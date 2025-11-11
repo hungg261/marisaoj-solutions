@@ -1,0 +1,1 @@
+print(*(lambda l, r: list(range(l, r + 1)))(*map(int, input().split())))

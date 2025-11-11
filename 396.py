@@ -1,0 +1,1 @@
+print((lambda x: "VERY TOXIC" if x >= 9.0 else "TOXIC" if x >= 5.0 else "SAFE")(float(input())))

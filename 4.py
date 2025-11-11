@@ -1,0 +1,1 @@
+print((lambda a, b, c: "YES" if a + b > c and b + c > a and a + c > b else "NO")(*list(map(int, input().split()))))

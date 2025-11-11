@@ -1,0 +1,1 @@
+print((lambda a, b: "INFINITE SOLUTIONS" if a == 0 and b == 0 else "NO SOLUTION" if a == 0 or b % a else -b // a)(*list(map(int, input().split()))))

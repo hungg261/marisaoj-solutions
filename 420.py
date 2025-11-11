@@ -1,0 +1,1 @@
+print((lambda X: 1 if (X[2],X[1],X[0]) < (X[5],X[4],X[3]) else 2)(list(map(int, input().split()))))

@@ -1,0 +1,1 @@
+print(*list(range(int(input()) & (~1), 0, -2)))

@@ -1,0 +1,1 @@
+print((lambda a, b, c: f"{min(a,b,c)} {max(a,b,c)}")(*map(int, input().split())))
