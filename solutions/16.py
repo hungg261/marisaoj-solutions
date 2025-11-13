@@ -1,0 +1,1 @@
+print((lambda n: "\n".join(['*' * i for i in range(n, 0, -1)]))(int(input())))
