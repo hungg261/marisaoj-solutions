@@ -1,0 +1,1 @@
+print(*(lambda a, b: (lambda g: [a//g, b//g])(__import__("math").gcd(a, b)))(*map(int, input().split())))
