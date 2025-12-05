@@ -13,7 +13,7 @@ int x[60], s[60];
 
 int Try(int idx, int smaller, int bound){
     if(idx < 0){
-        return bound;
+        return 1;
     }
 
     int& memo = dp[idx][smaller][bound];
@@ -23,7 +23,8 @@ int Try(int idx, int smaller, int bound){
 
     memo = 0;
     for(int digit = 0; digit <= lim; ++digit){
-        memo += Try(idx - 1, smaller || (digit < lim), bound && ((x[idx] ^ digit) <= s[idx]));
+        if(bound || (x[idx] ^ digit) <= s[idx])
+            memo += Try(idx - 1, smaller || (digit < lim), bound || ((x[idx] ^ digit) < s[idx]));
     }
     return memo;
 }
@@ -35,7 +36,7 @@ int solve(int N){
     }
 
     memset(dp, -1, sizeof dp);
-    return Try(59, 0, 1);
+    return Try(59, 0, 0);
 }
 
 signed main(){
@@ -49,6 +50,7 @@ signed main(){
         x[i] = X % 2;
         X /= 2;
     }
+
     for(int i = 0; i < 60; ++i){
         s[i] = S % 2;
         S /= 2;
@@ -58,6 +60,3 @@ signed main(){
 
     return 0;
 }
-/*
-79 65 94 89
-*/
