@@ -1,1 +1,1 @@
-print((lambda a, b, c: "YES" if a + b > c and b + c > a and a + c > b else "NO")(*list(map(int, input().split()))))
+print((lambda a, b: round(a/b, 2))(*list(map(float, input().split()))))

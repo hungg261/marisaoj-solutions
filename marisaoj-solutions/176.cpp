@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
-
+ 
 const int MAXN = 2e5, MAXK = 5;
 const int INF = 1e18;
 vector<pair<int, int>> adj[MAXN + 5];
 int n, m, k;
-
+ 
 struct State{
     int v, cost, kcnt;
     
@@ -18,7 +18,7 @@ struct State{
         return this->cost > other.cost;
     }
 };
-
+ 
 int dist[MAXN + 5][MAXK + 5];
 void dijkstra(){
     priority_queue<State, vector<State>, greater<>> pq;
@@ -37,7 +37,7 @@ void dijkstra(){
         for(const auto& p: adj[u]){
             int cost, v; tie(cost, v) = p;
             // cerr << u << ' ' << v << ": " << cost << " | " << curCost << " | " << kcnt << '\n';
-
+ 
             if(dist[u][kcnt] + cost < dist[v][kcnt]){
                 dist[v][kcnt] = dist[u][kcnt] + cost;
                 pq.push({v, dist[v][kcnt], kcnt});
@@ -67,7 +67,7 @@ void dijkstra(){
     
     cout << ans << '\n';
 }
-
+ 
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n >> m >> k;
@@ -80,6 +80,6 @@ signed main(){
     }
     
     dijkstra();
-
+ 
     return 0;
 }

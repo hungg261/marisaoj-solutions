@@ -1,13 +1,13 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
-
+ 
 const int MAXN = 2e5;
 const int INF = 1e18;
 const int MOD = 1e9 + 7;
 vector<pair<int, int>> adj[MAXN + 5];
 int n, m;
-
+ 
 int dist[MAXN + 5], minCnt[MAXN + 5];
 void dijkstra(){
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
@@ -38,7 +38,7 @@ void dijkstra(){
         }
     }
 }
-
+ 
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n >> m;

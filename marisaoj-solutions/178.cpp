@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+ 
 const int MAXN = 1e6;
 const int INF = 1e9;
 vector<pair<int, int>> adj[MAXN + 5];
 int A[MAXN + 5];
 int n;
-
+ 
 vector<int> dx, dy, dz;
 void computeDir(){
     for(int x = -1; x <= 1; ++x){
@@ -21,15 +21,15 @@ void computeDir(){
         }
     }
 }
-
+ 
 int encode(int i, int j, int k){
     return ((i - 1) * n + j - 1) * n + k;
 }
-
+ 
 bool in_bound(int x){
     return 1 <= x && x <= n;
 }
-
+ 
 int dist[MAXN + 5];
 void dijkstra(){
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
@@ -54,7 +54,7 @@ void dijkstra(){
         }
     }
 }
-
+ 
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n;

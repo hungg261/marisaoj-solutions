@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+ 
 const int MAXN = 1e5;
 int n, m;
 vector<int> adj[MAXN + 5];
-
+ 
 int mark[MAXN + 5];
 bool dfs(int u){
     mark[u] = 1;
@@ -21,7 +21,7 @@ bool dfs(int u){
     mark[u] = 2;
     return true;
 }
-
+ 
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n >> m;

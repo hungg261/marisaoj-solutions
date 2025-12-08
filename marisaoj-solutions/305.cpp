@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
-
+ 
 int mod = 1e9 + 7;
 struct Matrix{
     static const int SIZE = 100;
@@ -69,7 +69,7 @@ struct Matrix{
     int* operator[] (int idx){ return self[idx]; }
     const int* operator[] (int idx) const{ return self[idx]; }
 };
-
+ 
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     int n;

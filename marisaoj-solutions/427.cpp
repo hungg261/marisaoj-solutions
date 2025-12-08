@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
-
+ 
 const int MAXN=1e6,MAXVAL=1e6;
 int n,a[MAXN+5],gcd_cnt[MAXVAL+5],freq[MAXVAL+5];
-
+ 
 void solve(){
     for(int i=1;i<=n;++i){
         ++freq[a[i]];
@@ -27,7 +27,7 @@ void solve(){
         cout<<gcd_cnt[i]<<' ';
     }
 }
-
+ 
 signed main(){
     ios_base::sync_with_stdio(0);cin.tie(0);
     cin>>n;
