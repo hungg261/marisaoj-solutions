@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
- 
+
 struct DSU{
     vector<int> parent, sz;
     
@@ -35,7 +35,7 @@ struct DSU{
         sz[next] += sz[v];
     }
 };
- 
+
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     int n;

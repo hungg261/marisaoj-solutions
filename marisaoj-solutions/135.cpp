@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 // #define int long long
 using namespace std;
- 
+
 struct DSU{
     vector<int> parent, sz, head;
     int n;
@@ -28,11 +28,11 @@ struct DSU{
         }
     }
 };
- 
+
 const int MAXN = 1e5;
 int par[MAXN + 5];
 DSU dsu;
- 
+
 int res[MAXN + 5];
 void query(){
     int x, y, z;
@@ -51,7 +51,7 @@ void query(){
     //     y = par[y];
     // }
 }
- 
+
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     int n, q;

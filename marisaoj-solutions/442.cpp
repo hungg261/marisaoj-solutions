@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
- 
+
 const int MAXN=1e5,MAXK=100;
 int a[MAXN+5],n,k,last[MAXK+5],best[MAXK+5];
- 
+
 void solve(){
     fill(best,best+k+1,-1e18);
     for(int i=1;i<=n;++i){
@@ -32,7 +32,7 @@ void solve(){
     
     cout<<best[k]<<'\n';
 }
- 
+
 signed main(){
     ios_base::sync_with_stdio(0);cin.tie(0);
     cin>>n;

@@ -1,13 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
- 
+
 const int MAXN = 5e5+5;
 int n, m, timer = 0, scc_cnt = 0;
 vector<int> adj[MAXN];
 int disc[MAXN], low[MAXN], stk[MAXN], top = 0;
 bool inStack[MAXN];
 int scc_id[MAXN], scc_size[MAXN];
- 
+
 void tarjan(int u){
     disc[u] = low[u] = ++timer;
     stk[++top] = u; inStack[u] = 1;
@@ -30,20 +30,20 @@ void tarjan(int u){
         }
     }
 }
- 
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
- 
+
     cin >> n >> m;
     for(int i = 1; i <= m; i++){
         int u, v; cin >> u >> v;
         adj[u].push_back(v);
     }
- 
+
     for(int i = 1; i <= n; i++)
         if(!disc[i]) tarjan(i);
- 
+
     vector<int> outdeg(scc_cnt+1, 0);
     for(int u = 1; u <= n; u++){
         for(int v: adj[u]){
@@ -52,7 +52,7 @@ int main(){
             }
         }
     }
- 
+
     int sink = -1, cnt = 0;
     for(int i = 1; i <= scc_cnt; i++){
         if(outdeg[i] == 0){
@@ -60,7 +60,7 @@ int main(){
             sink = i;
         }
     }
- 
+
     if(cnt == 1) cout << scc_size[sink] << "\n";
     else cout << 0 << "\n";
 }

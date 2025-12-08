@@ -1,11 +1,11 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
- 
+
 const int MAXN=20;
 int n,L,R;
 int primes[MAXN+5];
- 
+
 int solve(int N){
     sort(primes+1,primes+n+1);
     n=unique(primes+1,primes+n+1)-primes-1;
@@ -30,7 +30,7 @@ int solve(int N){
     
     return ans;
 }
- 
+
 signed main(){
     ios_base::sync_with_stdio(0);cin.tie(0);
     cin>>n>>L>>R;

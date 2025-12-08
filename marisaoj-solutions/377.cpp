@@ -11,7 +11,7 @@ Time (YYYY-MM-DD-hh.mm.ss): 2024-09-02-19.06.22
 #define it(A) begin(A),end(A)
 #define inp(A,n) for(int i=0;i<n;++i)cin>>A[i]
 using namespace std;
- 
+
 void print(int dp[505][505],int n){
     for(int i=0;i<n;++i){
         for(int j=0;j<n;++j){
@@ -20,18 +20,18 @@ void print(int dp[505][505],int n){
         cout<<'\n';
     }
 }
- 
+
 void solve(){
     int n,A[505],dp[505][505],color[505][505];
     cin>>n;
     inp(A,n);
- 
+
     for(int i=0;i<n;++i)for(int j=0;j<n;++j)dp[i][j]=1e9;
     for(int i=0;i<n;++i){
         dp[i][i]=0;
         color[i][i]=A[i];
     }
- 
+
     for(int len=2;len<=n;++len){
         for(int i=0;i<=n-len;++i){
             int j=i+len-1;
@@ -47,15 +47,15 @@ void solve(){
 //            cout<<'\n';
         }
     }
- 
+
     cout<<dp[0][n-1]<<'\n';
 }
- 
+
 signed main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     // freopen("MIXTURES.INP","r",stdin);
     // freopen("MIXTURES.OUT","w",stdout);
- 
+
     int t = 1;
     while(t--)solve();
     return 0;

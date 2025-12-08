@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
- 
+
 struct DSU{
     vector<int> parent, sz;
     int n;
@@ -43,12 +43,12 @@ struct DSU{
         }
     }
 };
- 
+
 const int MAXN = 1e5;
 pair<int, int> arr[MAXN + 5];
 int maxGroup[MAXN + 5];
 int n, q;
- 
+
 int upperbound(int value){
     int l = 1, r = n, res = n + 1;
     while(l <= r){
@@ -62,7 +62,7 @@ int upperbound(int value){
     
     return res;
 }
- 
+
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n >> q;

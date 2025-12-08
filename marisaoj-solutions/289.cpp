@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
- 
+
 const int MAXN = 1e5;
 int n, m;
 vector<int> adj[MAXN + 5];
- 
+
 bool mark[MAXN + 5];
 vector<int> res;
 void toposort(int u){
@@ -17,7 +17,7 @@ void toposort(int u){
     
     res.push_back(u);
 }
- 
+
 signed main(){
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n >> m;
