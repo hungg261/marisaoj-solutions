@@ -8,42 +8,53 @@ using namespace std;
 
 //#define int long long
 
-const int MAXN = 5e4, MAXK = __lg(MAXN) + 1, BLOCKSIZE = ceil(sqrt(MAXN));
+const int MAXN = 5e4, MAXK = __lg(MAXN) + 1, BLOCKSIZE = 200;
 int n, q, h[MAXN + 5], c[MAXN + 5];
 vector<int> adj[MAXN + 5];
 vector<int> colors[MAXN + 5];
 
-int table[MAXN * 2 + 5][MAXK + 5], m = 0, st[MAXN + 5], lg2[MAXN + 5];
-void dfs(int u, int prev){
-    table[++m][0] = u;
-    st[u] = m;
-
+int table[MAXN + 5][MAXK + 5];
+void dfs(int u, int prv){
     for(int v: adj[u]){
-        if(v == prev) continue;
+        if(v == prv) continue;
 
         h[v] = h[u] + 1;
+        table[v][0] = u;
         dfs(v, u);
-        table[++m][0] = u;
     }
 }
 
 void compute(){
-    for(int i = 1; i <= m; ++i) lg2[i] = __lg(i);
-    for(int k = 1; k <= MAXK; ++k){
-        for(int i = 1; i + (1 << k) - 1 <= m; ++i){
-            table[i][k] = h[table[i][k - 1]] < h[table[i + (1 << (k - 1))][k - 1]] ?
-                            table[i][k - 1] : table[i + (1 << (k - 1))][k - 1];
+    for(int j = 1; j <= MAXK; ++j){
+        for(int i = 1; i <= n; ++i){
+            table[i][j] = table[table[i][j - 1]][j - 1];
         }
     }
 }
 
-int find_lca(int u, int v){
-    u = st[u];
-    v = st[v];
-    if(u > v) swap(u, v);
+int lift(int u, int steps){
+    for(int bit = MAXK; bit >= 0; --bit){
+        if(steps >> bit & 1){
+            u = table[u][bit];
+        }
+    }
+    return u;
+}
 
-    int bit = lg2[v - u + 1];
-    return h[table[u][bit]] < h[table[v - (1 << bit) + 1][bit]] ? table[u][bit] : table[v - (1 << bit) + 1][bit];
+int find_lca(int u, int v){
+    if(h[v] < h[u]) swap(u, v);
+    v = lift(v, h[v] - h[u]);
+
+    if(u == v) return u;
+
+    for(int bit = MAXK; bit >= 0; --bit){
+        if(table[u][bit] != table[v][bit]){
+            u = table[u][bit];
+            v = table[v][bit];
+        }
+    }
+
+    return table[u][0];
 }
 
 int find_dist(int u, int v){

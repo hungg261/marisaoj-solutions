@@ -34,7 +34,7 @@ struct FenwickTree{
     int get(int l, int r){ return get(r) - get(l - 1); }
 };
 
-const int MAXN = 1e5, BLOCKSIZE = ceil(sqrt(MAXN)), BLOCKCNT = MAXN / BLOCKSIZE + 1;
+const int MAXN = 1e5, BLOCKSIZE = 1282, BLOCKCNT = MAXN / BLOCKSIZE + 1;
 int n, q, arr[MAXN + 5];
 FenwickTree blocks[BLOCKCNT + 1];
 
@@ -66,32 +66,40 @@ void operate(int x, int y){
     int blockX = (x - 1) / BLOCKSIZE + 1,
         blockY = (y - 1) / BLOCKSIZE + 1;
 
-    blocks[blockX].update(arr[x], -1);
-    blocks[blockX].update(arr[y], 1);
+    if(blockX != blockY){
+        blocks[blockX].update(arr[x], -1);
+        blocks[blockX].update(arr[y], 1);
 
-    blocks[blockY].update(arr[y], -1);
-    blocks[blockY].update(arr[x], 1);
+        blocks[blockY].update(arr[y], -1);
+        blocks[blockY].update(arr[x], 1);
+    }
 
     swap(arr[x], arr[y]);
 }
 
 void solve(){
-    int ans = 0;
+    long long ans = 0;
     while(q--){
         int x, y;
         cin >> x >> y;
 
-        ans += -query(x + 1, y - 1, 1, arr[x] - 1);
-        ans += query(x + 1, y - 1, arr[x] + 1, n);
-        ans += query(x + 1, y - 1, arr[y] + 1, n);
-        ans += -query(x + 1, y - 1, 1, arr[y] - 1);
+        if(x == y){
+            cout << ans << '\n';
+            continue;
+        }
+        else if(x > y) swap(x, y);
+
+        int len = y - x - 1;
+        int addX = query(x + 1, y - 1, arr[x] + 1, n),
+            addY = query(x + 1, y - 1, 1, arr[y] - 1);
+        ans -= 2 * (len - addX - addY);
 
         if(arr[x] < arr[y]) ++ans;
-        else --ans;
-
-        cout << ans << '\n';
+        else if(arr[x] > arr[y]) --ans;
 
         operate(x, y);
+
+        cout << ans << '\n';
     }
 }
 
