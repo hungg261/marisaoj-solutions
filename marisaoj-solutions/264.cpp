@@ -6,53 +6,44 @@ Time (YYYY-MM-DD-hh.mm.ss): 2025-12-10-12.57.59
 #include<bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 1e5, MAXK = __lg(MAXN) + 1, BLOCKSIZE = ceil(sqrt(MAXN));
+//#define int long long
+
+const int MAXN = 5e4, MAXK = __lg(MAXN) + 1, BLOCKSIZE = ceil(sqrt(MAXN));
 int n, q, h[MAXN + 5], c[MAXN + 5];
 vector<int> adj[MAXN + 5];
 vector<int> colors[MAXN + 5];
 
-int table[MAXN + 5][MAXK + 5];
-void dfs(int u, int prv){
+int table[MAXN * 2 + 5][MAXK + 5], m = 0, st[MAXN + 5], lg2[MAXN + 5];
+void dfs(int u, int prev){
+    table[++m][0] = u;
+    st[u] = m;
+
     for(int v: adj[u]){
-        if(v == prv) continue;
+        if(v == prev) continue;
 
         h[v] = h[u] + 1;
-        table[v][0] = u;
         dfs(v, u);
+        table[++m][0] = u;
     }
 }
 
 void compute(){
-    for(int j = 1; j <= MAXK; ++j){
-        for(int i = 1; i <= n; ++i){
-            table[i][j] = table[table[i][j - 1]][j - 1];
+    for(int i = 1; i <= m; ++i) lg2[i] = __lg(i);
+    for(int k = 1; k <= MAXK; ++k){
+        for(int i = 1; i + (1 << k) - 1 <= m; ++i){
+            table[i][k] = h[table[i][k - 1]] < h[table[i + (1 << (k - 1))][k - 1]] ?
+                            table[i][k - 1] : table[i + (1 << (k - 1))][k - 1];
         }
     }
-}
-
-int lift(int u, int steps){
-    for(int bit = MAXK; bit >= 0; --bit){
-        if(steps >> bit & 1){
-            u = table[u][bit];
-        }
-    }
-    return u;
 }
 
 int find_lca(int u, int v){
-    if(h[v] < h[u]) swap(u, v);
-    v = lift(v, h[v] - h[u]);
+    u = st[u];
+    v = st[v];
+    if(u > v) swap(u, v);
 
-    if(u == v) return u;
-
-    for(int bit = MAXK; bit >= 0; --bit){
-        if(table[u][bit] != table[v][bit]){
-            u = table[u][bit];
-            v = table[v][bit];
-        }
-    }
-
-    return table[u][0];
+    int bit = lg2[v - u + 1];
+    return h[table[u][bit]] < h[table[v - (1 << bit) + 1][bit]] ? table[u][bit] : table[v - (1 << bit) + 1][bit];
 }
 
 int find_dist(int u, int v){
@@ -71,7 +62,7 @@ int find_closet(int node, int x){
         for(int v: adj[u]){
             if(v == prv) continue;
 
-            if(c[v] == x) return cnt;
+            if(c[v] == x) return cnt + 1;
             que.push({v, u, cnt + 1});
         }
     }
@@ -84,18 +75,17 @@ void solve(){
         int u, x;
         cin >> u >> x;
 
+        int best = INT_MAX;
         if((int)colors[x].size() > BLOCKSIZE){
-            cout << find_closet(u, x) << '\n';
+            best = find_closet(u, x);
         }
         else{
-            int best = INT_MAX;
             for(int cl: colors[x]){
-                cerr << cl << ": " << find_dist(u, cl) << '\n';
                 best = min(best, find_dist(u, cl));
             }
-
-            cout << best << '\n';
         }
+
+        cout << (best == INT_MAX ? -1 : best) << '\n';
     }
 }
 
@@ -104,16 +94,16 @@ signed main(){
     //freopen("264.INP","r",stdin);
     //freopen("264.OUT","w",stdout);
     cin >> n >> q;
+    for(int u = 1; u <= n; ++u){
+        cin >> c[u];
+        colors[c[u]].push_back(u);
+    }
     for(int i = 1; i < n; ++i){
         int a, b;
         cin >> a >> b;
 
         adj[a].push_back(b);
         adj[b].push_back(a);
-    }
-    for(int u = 1; u <= n; ++u){
-        cin >> c[u];
-        colors[c[u]].push_back(u);
     }
 
     dfs(1, 0);
@@ -123,3 +113,15 @@ signed main(){
 
     return 0;
 }
+
+/*
+3 5
+2 2 5
+3 2
+1 2
+3 2
+2 2
+3 1
+1 2
+3 1
+*/
